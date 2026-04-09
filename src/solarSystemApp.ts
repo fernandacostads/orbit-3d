@@ -14,6 +14,7 @@ const enum BodyClass {
   SetSpeed = "set-speed",
   SetSize = "set-size",
   SetDistance = "set-distance",
+  SetFacts = "set-facts",
 }
 
 const enum ScaleMode {
@@ -128,11 +129,20 @@ export class SolarSystemApp {
 
     if (target.classList.contains("set-distance")) {
       this.setScaleMode(ScaleMode.Distance, BodyClass.SetDistance);
+      return;
+    }
+
+    if (target.classList.contains("set-facts")) {
+      this.setInfoMode(BodyClass.SetFacts);
     }
   };
 
   private setScaleMode(scaleClass: ScaleMode, bodyClass: BodyClass): void {
     this.universe.className = scaleClass;
+    this.updateBodyScaleClass(bodyClass);
+  }
+
+  private setInfoMode(bodyClass: BodyClass): void {
     this.updateBodyScaleClass(bodyClass);
   }
 
@@ -147,6 +157,7 @@ export class SolarSystemApp {
       BodyClass.SetSpeed,
       BodyClass.SetSize,
       BodyClass.SetDistance,
+      BodyClass.SetFacts,
     );
     this.body.classList.add(bodyClass);
   }
