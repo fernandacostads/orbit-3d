@@ -1,4 +1,4 @@
-import "../css/styles.scss";
+import "../css/styles.css";
 import { SolarSystemApp } from "./solarSystemApp";
 
 document.addEventListener("DOMContentLoaded", () => {
