@@ -31,28 +31,34 @@ dl.infos:before {
 dl.infos dt {
   position: absolute;
   left: 50px;
-  margin-bottom: 26px;
-  bottom: 30px;
+  top: -30px;
   color: #FFF;
   font-size: 14px;
   text-shadow: 1px 1px 2px black;
 }
 
-dl.infos dd:after {
+dl.infos dd {
   position: absolute;
   left: 50px;
-  bottom: 30px;
-  width: 300px;
+  top: 0;
+  width: 260px;
+}
+
+dl.infos dd:after {
+  display: block;
+  width: 100%;
   color: #FFF;
   font-size: 22px;
+  line-height: 1.2;
+  white-space: normal;
+  overflow-wrap: break-word;
   text-shadow: 1px 1px 2px black;
 }
 
 dl.infos dd span:after {
-  position: absolute;
-  left: 50px;
-  bottom: 14px;
-  width: 300px;
+  display: block;
+  margin-top: 6px;
+  width: 100%;
   color: #FFF;
   font-size: 11px;
   text-shadow: 1px 1px 2px black;
@@ -70,6 +76,19 @@ dl.infos dd span:after {
   display: block; 
   opacity: 1;
   transform: rotateX(0deg);
+}
+
+.sun #sun .infos dt,
+.mercury #mercury .infos dt,
+.venus #venus .infos dt,
+.earth #earth .infos dt,
+.mars #mars .infos dt,
+.jupiter #jupiter .infos dt,
+.saturn #saturn .infos dt,
+.uranus #uranus .infos dt,
+.neptune #neptune .infos dt {
+  font-weight: bold;
+  font-size: 24px;
 }
 
 .mercury #mercury.orbit,

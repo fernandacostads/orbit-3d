@@ -238,3 +238,14 @@ $d-neptune:             4498396441;
 .set-distance #saturn dl.infos dd:after  { content: '1,426,666,422 km'; }
 .set-distance #uranus dl.infos dd:after  { content: '2,870,658,186 km'; }
 .set-distance #neptune dl.infos dd:after { content: '4,498,396,441 km'; }
+
+.set-facts dl.infos dd span:after     { content: 'Fun Fact'; color: #0CF; font-size: 13px; }
+.set-facts #sun dl.infos dd:after     { content: 'The Sun contains 99.8% of the Solar System mass'; }
+.set-facts #mercury dl.infos dd:after { content: 'Mercury has the most extreme temperature swings of any planet'; }
+.set-facts #venus dl.infos dd:after   { content: 'Venus rotates backward and has a surface hotter than Mercury'; }
+.set-facts #earth dl.infos dd:after   { content: 'Earth is the only planet known to support life'; }
+.set-facts #mars dl.infos dd:after    { content: 'Mars has the tallest volcano in the Solar System: Olympus Mons'; }
+.set-facts #jupiter dl.infos dd:after { content: 'Jupiter is so large it could fit 1,300 Earths inside'; }
+.set-facts #saturn dl.infos dd:after  { content: 'Saturn’s rings are made of ice and rock particles'; }
+.set-facts #uranus dl.infos dd:after  { content: 'Uranus rotates on its side, likely due to a giant impact'; }
+.set-facts #neptune dl.infos dd:after { content: 'Neptune has the strongest winds in the Solar System'; }
