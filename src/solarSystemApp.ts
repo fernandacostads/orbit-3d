@@ -23,6 +23,87 @@ const enum ScaleMode {
   Distance = "scale-d",
 }
 
+type Locale = "en" | "pt" | "es";
+
+const translations: Record<
+  Locale,
+  {
+    lang: string;
+    title: string;
+    toggleData: string;
+    toggleControls: string;
+    scaleSpeed: string;
+    scaleSize: string;
+    scaleDistance: string;
+    scaleFacts: string;
+    planets: Record<string, string>;
+  }
+> = {
+  en: {
+    lang: "en",
+    title: "Orbit 3D",
+    toggleData: "Data",
+    toggleControls: "Controls",
+    scaleSpeed: "Speed",
+    scaleSize: "Size",
+    scaleDistance: "Distance",
+    scaleFacts: "Facts",
+    planets: {
+      sun: "Sun",
+      mercury: "Mercury",
+      venus: "Venus",
+      earth: "Earth",
+      mars: "Mars",
+      jupiter: "Jupiter",
+      saturn: "Saturn",
+      uranus: "Uranus",
+      neptune: "Neptune",
+    },
+  },
+  pt: {
+    lang: "pt-BR",
+    title: "Orbit 3D",
+    toggleData: "Dados",
+    toggleControls: "Controles",
+    scaleSpeed: "Velocidade",
+    scaleSize: "Tamanho",
+    scaleDistance: "Distância",
+    scaleFacts: "Fatos",
+    planets: {
+      sun: "Sol",
+      mercury: "Mercúrio",
+      venus: "Vênus",
+      earth: "Terra",
+      mars: "Marte",
+      jupiter: "Júpiter",
+      saturn: "Saturno",
+      uranus: "Urano",
+      neptune: "Netuno",
+    },
+  },
+  es: {
+    lang: "es",
+    title: "Orbit 3D",
+    toggleData: "Datos",
+    toggleControls: "Controles",
+    scaleSpeed: "Velocidad",
+    scaleSize: "Tamaño",
+    scaleDistance: "Distancia",
+    scaleFacts: "Hechos",
+    planets: {
+      sun: "Sol",
+      mercury: "Mercurio",
+      venus: "Venus",
+      earth: "Tierra",
+      mars: "Marte",
+      jupiter: "Júpiter",
+      saturn: "Saturno",
+      uranus: "Urano",
+      neptune: "Neptuno",
+    },
+  },
+};
+
 const planetClasses = new Set([
   "sun",
   "mercury",
@@ -37,8 +118,11 @@ const planetClasses = new Set([
 
 export class SolarSystemApp {
   private readonly body = document.body;
+  private readonly html = document.documentElement;
   private readonly universe = getElement<HTMLElement>("#universe");
   private readonly solarSystem = getElement<HTMLElement>("#solar-system");
+  private readonly languageSelect =
+    getElement<HTMLSelectElement>("#language-select");
   private readonly dataLinks = queryAll<HTMLAnchorElement>("#data a");
   private readonly toggleData = getElement<HTMLAnchorElement>("#toggle-data");
   private readonly toggleControls =
@@ -49,6 +133,7 @@ export class SolarSystemApp {
   public start(): void {
     this.initializeView();
     this.bindEvents();
+    this.applyLocale(this.languageSelect.value as Locale);
   }
 
   private initializeView(): void {
@@ -65,6 +150,7 @@ export class SolarSystemApp {
   private bindEvents(): void {
     this.toggleData.addEventListener("click", this.handleToggleData);
     this.toggleControls.addEventListener("click", this.handleToggleControls);
+    this.languageSelect.addEventListener("change", this.handleLanguageChange);
     delegate<HTMLAnchorElement>(
       this.dataSection,
       "a",
@@ -73,6 +159,11 @@ export class SolarSystemApp {
     );
     this.controls.addEventListener("click", this.handleControlClick);
   }
+
+  private handleLanguageChange = (event: Event): void => {
+    const locale = (event.target as HTMLSelectElement).value as Locale;
+    this.applyLocale(locale);
+  };
 
   private handleToggleData = (event: MouseEvent): void => {
     event.preventDefault();
@@ -195,5 +286,70 @@ export class SolarSystemApp {
     this.dataLinks.forEach((link) =>
       link.classList.toggle("active", link === activeLink),
     );
+  }
+
+  private applyLocale(locale: Locale): void {
+    const translation = translations[locale];
+
+    this.html.lang = translation.lang;
+    document.title = translation.title;
+
+    const toggleDataLabel = this.toggleData.querySelector("span");
+    const toggleControlsLabel = this.toggleControls.querySelector("span");
+
+    if (toggleDataLabel) {
+      toggleDataLabel.textContent = translation.toggleData;
+    }
+
+    if (toggleControlsLabel) {
+      toggleControlsLabel.textContent = translation.toggleControls;
+    }
+
+    const speedLabel = this.controls.querySelector(
+      ".set-speed span",
+    ) as HTMLSpanElement | null;
+    const sizeLabel = this.controls.querySelector(
+      ".set-size span",
+    ) as HTMLSpanElement | null;
+    const distanceLabel = this.controls.querySelector(
+      ".set-distance span",
+    ) as HTMLSpanElement | null;
+    const factsLabel = this.controls.querySelector(
+      ".set-facts span",
+    ) as HTMLSpanElement | null;
+
+    if (speedLabel) {
+      speedLabel.textContent = translation.scaleSpeed;
+    }
+
+    if (sizeLabel) {
+      sizeLabel.textContent = translation.scaleSize;
+    }
+
+    if (distanceLabel) {
+      distanceLabel.textContent = translation.scaleDistance;
+    }
+
+    if (factsLabel) {
+      factsLabel.textContent = translation.scaleFacts;
+    }
+
+    this.dataLinks.forEach((link) => {
+      const planet = this.getPlanetClassFromAnchor(link);
+
+      if (planet) {
+        link.textContent = translation.planets[planet];
+        link.title = translation.planets[planet];
+      }
+    });
+
+    planetClasses.forEach((planet) => {
+      const target = document.querySelector<HTMLElement>(`#${planet}`);
+      const heading = target?.querySelector("dt");
+
+      if (heading && translation.planets[planet]) {
+        heading.textContent = translation.planets[planet];
+      }
+    });
   }
 }

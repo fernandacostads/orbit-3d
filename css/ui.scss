@@ -39,6 +39,64 @@ h1 {
 #toggle-data { left: 0; }
 #toggle-controls { right: 0; }
 
+.language-picker {
+  position: absolute;
+  top: 5px;
+  right: 84px;
+  display: inline-block;
+  min-width: 110px;
+}
+
+.language-picker select {
+  color: rgba(187, 34, 34, 0.9);
+  background: rgba(197, 0, 0, 0.06);
+  border: 2px solid rgba(255,255,255,.24);
+  border-radius: 16px;
+  padding: 0 42px 0 14px;
+  width: 100%;
+  height: 34px;
+  font-size: 12px;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  line-height: 34px;
+  outline: none;
+  appearance: none;
+  -webkit-appearance: none;
+  cursor: pointer;
+  box-shadow: inset 0 0 0 1px rgba(255,255,255,.06), 0 0 16px rgba(0,0,0,.14);
+  transition: border-color .2s ease, background .2s ease, box-shadow .2s ease;
+}
+
+.language-picker select:hover,
+.language-picker select:focus {
+  border-color: rgba(0,204,255,.6);
+  background: rgba(255,255,255,.08);
+  box-shadow: inset 0 0 0 1px rgba(0,204,255,.12), 0 0 18px rgba(0,204,255,.08);
+}
+
+.language-picker select::-ms-expand {
+  display: none;
+}
+
+.language-picker::after {
+  content: '';
+  position: absolute;
+  right: 14px;
+  top: 50%;
+  width: 0;
+  height: 0;
+  margin-top: -3px;
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  border-top: 6px solid rgba(255,255,255,.85);
+  pointer-events: none;
+}
+
+.language-picker select option {
+  background: rgba(0,0,0,.95);
+  color: #FFF;
+}
+
 #data, #controls {
   z-index: 99;
   position: fixed;
